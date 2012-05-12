@@ -33,14 +33,34 @@
     		visibility: hidden;
     		background: url("nikkei.png") no-repeat;
     	}
+    	#error {
+     		visibility: hidden;
+     		background: #999999;
+     		padding: 5px;
+     		color: red;
+     		font-weight: bold;
+     		font-size: 2em;
+    	}
     </style>
-  </head>
-  <body>
-  <div id="cover"></div>
     <script type="application/dart" src="Aiueo.dart"></script>
     <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
+  </head>
+  <body>
+    <div id="cover"></div>
     <div id="status"></div>
+  
     <video id="selfView" autoplay="autoplay" audio="muted"></video>
+  
     <canvas width="200" height="200" id="localCanvas"></canvas>
+  
+    <div id="error" align="center">
+	  <p>
+	    MediaStream(WebRTC) is not active.
+  	  </p>
+	  <img src="mediastream.png" />  	
+	  <p>
+	    You should enable MediaStream by "chrome://flags" page and restart Chrome...
+  	  </p>
+    </div>
   </body>
 </html>
