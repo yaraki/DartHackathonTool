@@ -1,35 +1,25 @@
 #import('dart:html');
 #import('dart:dom', prefix:"dom");
 
-class Aiueo {
-
-  Aiueo() {
-  }
-
+class Camera {
   void run() {
-    write("Hello World!");
-    write("It is fine today.");
-
+    takePicture();
   }
-
-  void write(String message) {
-    // the HTML library defines a global "document" variable
-    document.query('#status').innerHTML = message;
+  
+  void takePicture() {
+    try {
+      window.navigator.webkitGetUserMedia("video user", gotStream);
+      window.setTimeout(takePicture, 1000);
+    } catch (var e) {
+      print(e);
+    }
+  }
+  
+  void gotStream(var stream) {
+    document.query("#selfView").attributes = { "src": new dom.DOMURL().createObjectURL(stream) };
   }
 }
 
 void main() {
-  new Aiueo().run();
-  try {
-    window.navigator.webkitGetUserMedia("video user", gotStream);
-  } catch (var e) {
-    print(e);
-  }
-}
-
-void gotStream(var stream) {
-  print("MediaStream? ${stream is MediaStream} (${stream})");
-  var objectURL = new dom.DOMURL().createObjectURL(stream);
-  document.query("#selfView").attributes = { "src": objectURL };
-  print("aaa");
+  new Camera().run();
 }
