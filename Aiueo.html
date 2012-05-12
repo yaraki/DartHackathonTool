@@ -3,13 +3,33 @@
 <html>
   <head>
     <title>Aiueo</title>
+    <style type="text/css">
+    	body {
+    		background: url("nico.png") no-repeat;
+    	}
+    	
+    	#selfView {
+    		position: absolute;
+    		top: 20px;
+    		right: 30px;
+    		width: 200px;
+    		height: 200px;
+    	}
+    	
+    	#localCanvas {
+    		position: absolute;
+    		top: 240px;
+    		right: 30px;
+    		width: 200px;
+    		height: 200px;
+    	}
+    </style>
   </head>
   <body>
-    <h1>Aiueo</h1>
-    <h2 id="status">dart is not running</h2>
     <script type="application/dart" src="Aiueo.dart"></script>
     <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
+    <div id="status"></div>
+    <video id="selfView" autoplay="autoplay" audio="muted"></video>
     <canvas width="200" height="200" id="localCanvas"></canvas>
-    <video id="selfView" autoplay="autoplay" audio="muted" style="-webkit-transform: scaleX(-1);"></video>
   </body>
 </html>
