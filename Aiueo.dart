@@ -19,9 +19,9 @@ class Camera {
   
   var flg = false;
   void bossIsHere() {
-    if(flg === false) {
-          document.body.style.backgroundImage = "url(nikkei.png)";
-          flg = true;
+    if (flg === false) {
+      document.query("#cover").style.visibility = "visible";
+      flg = true;
     }
   }
   
