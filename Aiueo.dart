@@ -7,7 +7,7 @@ class Camera {
   var localCanvas;
   var ctx2;
   var prevImg = null;
-  final int threshold = 3000000;
+  final int threshold = 2900000;
   
   void run() {
     localVideo = document.query("#selfView");
@@ -17,8 +17,12 @@ class Camera {
     
   }
   
+  var flg = false;
   void bossIsHere() {
-    document.body.style.backgroundImage = "url(nikkei.png)";
+    if(flg === false) {
+          document.body.style.backgroundImage = "url(nikkei.png)";
+          flg = true;
+    }
   }
   
   void toggle() {
@@ -47,9 +51,9 @@ class Camera {
     window.requestAnimationFrame(canvasCopy);
   }
   
-  int checkDiff(var prevImg, var img) {
+  int checkDiff(var prev, var img) {
     var pix = img.data;
-    var prevPix = prevImg.data;
+    var prevPix = prev.data;
     int result = 0;
     for (var i = 0, n = pix.length; i < n; i += 4) {
       int diffR = pix[i] - prevPix[i];
@@ -72,19 +76,23 @@ class Camera {
     }
   }
   
+  var prevDiff = 0;
+  
   void renderCanvas() {
-    ctx2.drawImage(localVideo, 0, 0, 100, 100); var imgd = ctx2.getImageData(0, 0, localCanvas.width, localCanvas.height);
+    ctx2.drawImage(localVideo, 0, 0, 200, 200); var imgd = ctx2.getImageData(0, 0, localCanvas.width, localCanvas.height);
     binaryImage(imgd);
     if (prevImg !== null) {
       int diff = checkDiff(prevImg, imgd);
-      if (diff > threshold) {
+      if (prevDiff > 0 && diff > threshold) {
         document.query('#status').innerHTML = "上司検出！" + diff;
         bossIsHere();
+      } else {
+        prevDiff = diff;
       }
       print("diff = " + diff);
     }
     prevImg = imgd;
-    // ctx2.putImageData(imgd, 0, 0);
+    ctx2.putImageData(imgd, 0, 0);
   }
 }
 
